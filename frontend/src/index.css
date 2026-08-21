@@ -1,0 +1,433 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================================
+   DIRECT COLOR UTILITIES (100% RELIABLE)
+   ========================================= */
+.bg-cerulean {
+  background-color: #124874 !important;
+}
+
+.text-cerulean {
+  color: #124874 !important;
+}
+
+.border-cerulean {
+  border-color: #124874 !important;
+}
+
+.bg-jasper {
+  background-color: #CF373D !important;
+}
+
+.text-jasper {
+  color: #CF373D !important;
+}
+
+.border-jasper {
+  border-color: #CF373D !important;
+}
+
+.bg-brand-paper {
+  background-color: #F7F4EE !important;
+}
+
+.bg-brand-paperLight {
+  background-color: #FCFAF6 !important;
+}
+
+.bg-brand-paperDark {
+  background-color: #EDE7DC !important;
+}
+
+.text-brand-dark {
+  color: #161413 !important;
+}
+
+.border-brand-borderLight {
+  border-color: #D8D1C5 !important;
+}
+
+/* Eliminate browser autofill styling and prevent blue/yellow backgrounds */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #ffffff inset !important;
+  box-shadow: 0 0 0 1000px #ffffff inset !important;
+  -webkit-text-fill-color: #161413 !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* =========================================
+   NEWSPAPER BROADSIDE CUSTOM SCROLLBAR
+   ========================================= */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #FAF7F2;
+  border-left: 1px solid #D8D1C5;
+  border-top: 1px solid #D8D1C5;
+}
+::-webkit-scrollbar-thumb {
+  background: #124874;
+  border-radius: 1px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #CF373D;
+}
+
+/* Thin editorial table scroll container */
+.editorial-table-scroll {
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: 620px;
+  scrollbar-width: thin;
+  scrollbar-color: #124874 #FAF7F2;
+}
+
+@layer base {
+  body {
+    background-color: #F7F4EE;
+    color: #161413;
+    font-family: 'Newsreader', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.6;
+    letter-spacing: 0.01em;
+    background-image: radial-gradient(#dcd5c9 0.75px, transparent 0.75px);
+    background-size: 24px 24px;
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Bodoni Moda', 'Playfair Display', Georgia, serif;
+    letter-spacing: -0.02em;
+    color: #124874; /* Xanh Cerulean */
+  }
+}
+
+/* =========================================
+   AUTHENTIC EDITORIAL RULES & BORDERS (CERULEAN #124874 & JASPER #CF373D)
+   ========================================= */
+
+/* Oxford Border: Thick line paired with a thin line */
+.oxford-border-y {
+  border-top: 3px solid #124874;
+  border-bottom: 1px solid #124874;
+}
+
+.oxford-border-t {
+  border-top: 3px double #124874;
+}
+
+.oxford-double-border {
+  border: 4px double #124874;
+}
+
+.broadsheet-rule {
+  border-top: 1px solid #124874;
+  position: relative;
+}
+
+.broadsheet-rule::after {
+  content: '';
+  display: block;
+  margin-top: 2px;
+  border-top: 1px solid #124874;
+}
+
+.broadsheet-divider-ornate {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #CF373D; /* Đỏ Jasper */
+}
+
+.broadsheet-divider-ornate::before,
+.broadsheet-divider-ornate::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #D8D1C5;
+}
+
+.broadsheet-divider-ornate:not(:empty)::before {
+  margin-right: 1.25em;
+}
+
+.broadsheet-divider-ornate:not(:empty)::after {
+  margin-left: 1.25em;
+}
+
+/* Hairline borders */
+.hairline-border {
+  border: 1px solid #D8D1C5;
+}
+
+.hairline-border-b {
+  border-bottom: 1px solid #D8D1C5;
+}
+
+.hairline-border-t {
+  border-top: 1px solid #D8D1C5;
+}
+
+.hairline-border-r {
+  border-right: 1px solid #D8D1C5;
+}
+
+/* Vintage Docket / Paper Card */
+.editorial-paper {
+  background-color: #FCFAF6;
+  border: 1px solid #124874;
+  box-shadow: 3px 3px 0px rgba(18, 72, 116, 0.95);
+}
+
+.editorial-card-press {
+  background-color: #FCFAF6;
+  border: 1px solid #124874;
+  box-shadow: 3px 3px 0px rgba(18, 72, 116, 0.9);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.editorial-card-press:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0px rgba(18, 72, 116, 0.95);
+}
+
+/* Drop Cap for editorial stories in Jasper Red */
+.drop-cap::first-letter {
+  float: left;
+  font-family: 'Bodoni Moda', 'Playfair Display', Georgia, serif;
+  font-size: 3.8rem;
+  line-height: 0.8;
+  font-weight: 800;
+  padding-right: 8px;
+  padding-top: 4px;
+  color: #CF373D; /* Đỏ Jasper */
+}
+
+/* Rubber Stamp Badges */
+.ink-stamp {
+  display: inline-flex;
+  align-items: center;
+  font-family: 'Cinzel', 'Playfair Display', serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 2px 8px;
+  border: 2px solid currentColor;
+  border-radius: 2px;
+  transform: rotate(-1.5deg);
+  opacity: 0.95;
+  box-shadow: 0 0 0 1px inset currentColor;
+}
+
+.stamp-jasper, .stamp-red {
+  color: #CF373D; /* Đỏ Jasper */
+  background-color: rgba(207, 55, 61, 0.08);
+  border-color: #CF373D;
+}
+
+.stamp-cerulean, .stamp-navy {
+  color: #124874; /* Xanh Cerulean */
+  background-color: rgba(18, 72, 116, 0.08);
+  border-color: #124874;
+}
+
+.stamp-green {
+  color: #1E4A38;
+  background-color: rgba(30, 74, 56, 0.08);
+  border-color: #1E4A38;
+}
+
+.stamp-amber {
+  color: #B8860B;
+  background-color: rgba(184, 134, 11, 0.08);
+  border-color: #B8860B;
+}
+
+.stamp-muted {
+  color: #6E675F;
+  background-color: rgba(110, 103, 95, 0.06);
+  border-color: #6E675F;
+}
+
+/* Button Pressed Animation */
+.press-btn {
+  border: 1.5px solid currentColor;
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.85);
+  transition: all 0.1s ease-in-out;
+}
+
+.press-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.95);
+}
+
+.press-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.95);
+}
+
+/* =========================================
+   RE-TRIGGERABLE AUTH TRANSITION ANIMATIONS
+   ========================================= */
+@keyframes authPageSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(12px) scale(0.99);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes authSideSlideLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes authSideSlideRight {
+  0% {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes authScaleFade {
+  0% {
+    opacity: 0;
+    transform: scale(0.94) translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-auth-page {
+  animation: authPageSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-auth-slide-left {
+  animation: authSideSlideLeft 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-auth-slide-right {
+  animation: authSideSlideRight 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-auth-scale {
+  animation: authScaleFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-editorial-in {
+  animation: authPageSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes pageTurnSmooth {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.992);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-page-turn {
+  animation: pageTurnSmooth 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Print media display toggles */
+.print-only {
+  display: none !important;
+}
+
+.screen-only {
+  display: block;
+}
+
+/* =========================================
+   PRINT MEDIA RULES (CHUẨN IN ẤN BÁO CÁO A4)
+   ========================================= */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 12mm 12mm 12mm 12mm;
+  }
+
+  body {
+    background-color: #ffffff !important;
+    background-image: none !important;
+    color: #161413 !important;
+    font-size: 11pt !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  .screen-only {
+    display: none !important;
+  }
+
+  /* Hide app navigation chrome and screen-only elements */
+  aside, 
+  header.no-print,
+  footer.no-print,
+  .no-print,
+  button:not(.print-include),
+  .press-btn:not(.print-include) {
+    display: none !important;
+  }
+
+  main {
+    margin-left: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    background: transparent !important;
+  }
+
+  .editorial-card-press {
+    box-shadow: none !important;
+    border: 1.5pt solid #124874 !important;
+    padding: 16pt !important;
+    background: #ffffff !important;
+  }
+
+  .print-sheet-container {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  .print-avoid-break {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Optimize colors for ink-saving paper printing */
+  .ink-stamp {
+    border-width: 1.5pt !important;
+  }
+}
+

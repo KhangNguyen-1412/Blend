@@ -1,0 +1,19 @@
+{
+  "name": "blend-management-system",
+  "version": "1.0.0",
+  "description": "Blend Coffee & Tea Fullstack Management System (React + Vite + Node.js + SQLite)",
+  "scripts": {
+    "dev:backend": "npm run dev --prefix backend",
+    "dev:frontend": "npm run dev --prefix frontend",
+    "dev": "concurrently -n \"BACKEND,FRONTEND\" -c \"bgBlue.bold,bgGreen.bold\" \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "install:backend": "npm install --prefix backend",
+    "install:frontend": "npm install --prefix frontend",
+    "install:all": "npm install && npm run install:backend && npm run install:frontend",
+    "build:frontend": "npm run build --prefix frontend"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "author": "",
+  "license": "ISC"
+}
