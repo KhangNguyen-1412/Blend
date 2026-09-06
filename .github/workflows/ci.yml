@@ -100,7 +100,7 @@ jobs:
           cache-dependency-path: 'frontend/package-lock.json'
 
       - name: Install Frontend Dependencies
-        run: npm --prefix frontend ci --prefer-offline
+        run: npm --prefix frontend ci --prefer-offline --legacy-peer-deps || npm --prefix frontend install --prefer-offline --legacy-peer-deps
 
       - name: Execute Frontend Tests & Coverage
         run: npm --prefix frontend run test:coverage
@@ -133,7 +133,7 @@ jobs:
 
       - name: Install Dependencies & Build Frontend Bundle
         run: |
-          npm --prefix frontend ci --prefer-offline
+          npm --prefix frontend ci --prefer-offline --legacy-peer-deps || npm --prefix frontend install --prefer-offline --legacy-peer-deps
           npm --prefix frontend run build
 
       - name: Verify Bundle Integrity

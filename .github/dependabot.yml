@@ -1,6 +1,7 @@
 # ==============================================================================
 # Enterprise Dependabot Configuration for Blend Management System
 # Monitors npm packages across Root, Backend, Frontend, and GitHub Actions
+# Uses grouped updates and semver protection to prevent broken peer dependencies
 # ==============================================================================
 version: 2
 updates:
@@ -12,12 +13,15 @@ updates:
       day: "monday"
       time: "03:00"
       timezone: "Asia/Ho_Chi_Minh"
-    open-pull-requests-limit: 5
+    open-pull-requests-limit: 3
     reviewers:
       - "KhangNguyen-1412"
     labels:
       - "dependencies"
       - "enterprise-security"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
 
   # 2. Backend API dependencies (Express, SQLite, Morgan, Cors)
   - package-ecosystem: "npm"
@@ -27,13 +31,22 @@ updates:
       day: "monday"
       time: "03:15"
       timezone: "Asia/Ho_Chi_Minh"
-    open-pull-requests-limit: 10
+    open-pull-requests-limit: 3
     reviewers:
       - "KhangNguyen-1412"
     labels:
       - "backend"
       - "dependencies"
       - "enterprise-security"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      backend-testing:
+        patterns:
+          - "vitest*"
+          - "@vitest/*"
+          - "supertest*"
 
   # 3. Frontend React/Vite dependencies
   - package-ecosystem: "npm"
@@ -43,13 +56,39 @@ updates:
       day: "monday"
       time: "03:30"
       timezone: "Asia/Ho_Chi_Minh"
-    open-pull-requests-limit: 10
+    open-pull-requests-limit: 3
     reviewers:
       - "KhangNguyen-1412"
     labels:
       - "frontend"
       - "dependencies"
       - "enterprise-security"
+    # Prevent breaking major updates (e.g. React 19, Vite 8, Tailwind 4)
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    # Group coordinated packages together into a single PR
+    groups:
+      react-ecosystem:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react"
+          - "@types/react-dom"
+      vite-ecosystem:
+        patterns:
+          - "vite"
+          - "@vitejs/*"
+      testing-ecosystem:
+        patterns:
+          - "vitest"
+          - "@vitest/*"
+          - "@testing-library/*"
+      styling-ecosystem:
+        patterns:
+          - "tailwindcss"
+          - "postcss"
+          - "autoprefixer"
 
   # 4. GitHub Actions Workflows
   - package-ecosystem: "github-actions"
@@ -59,7 +98,7 @@ updates:
       day: "monday"
       time: "04:00"
       timezone: "Asia/Ho_Chi_Minh"
-    open-pull-requests-limit: 5
+    open-pull-requests-limit: 3
     labels:
       - "ci-cd"
       - "devops"
