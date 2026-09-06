@@ -1,0 +1,28 @@
+# ==============================================================================
+# Enterprise Code Ownership & Automated Review Routing for Blend
+# ==============================================================================
+
+# Global Default Owner
+* @KhangNguyen-1412
+
+# Backend Infrastructure, Database Schema & Controllers
+/backend/ @KhangNguyen-1412
+/backend/src/config/ @KhangNguyen-1412
+/backend/src/controllers/ @KhangNguyen-1412
+/backend/test/ @KhangNguyen-1412
+
+# Frontend UI, Components & State
+/frontend/ @KhangNguyen-1412
+/frontend/src/components/ @KhangNguyen-1412
+/frontend/src/services/ @KhangNguyen-1412
+/frontend/src/test/ @KhangNguyen-1412
+
+# DevOps, CI/CD, Containerization & Infrastructure Security
+/.github/ @KhangNguyen-1412
+/.github/workflows/ @KhangNguyen-1412
+/Dockerfile @KhangNguyen-1412
+/.dockerignore @KhangNguyen-1412
+
+# Architecture & System Design Documentation
+/docs/ @KhangNguyen-1412
+/docs/architecture/ @KhangNguyen-1412

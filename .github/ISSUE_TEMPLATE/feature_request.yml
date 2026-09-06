@@ -1,0 +1,30 @@
+name: "✨ Đề Xuất Tính Năng (Feature Request)"
+description: "Đề xuất tính năng mới hoặc nâng cấp quy trình vận hành cho Blend Management"
+title: "[FEAT]: "
+labels: ["enhancement", "feature"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Đề xuất sáng kiến cải tiến sản phẩm và tính năng vận hành F&B chuẩn hóa.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Vấn đề hoặc Nhu cầu nghiệp vụ
+      placeholder: Vấn đề hiện tại gặp phải là gì? Tại sao tính năng này mang lại giá trị?
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Giải pháp đề xuất
+      placeholder: Mô tả chi tiết tính năng bạn muốn bổ sung hoặc cách giải quyết vấn đề...
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Các phương án thay thế đã cân nhắc
+      placeholder: Bạn đã xem xét phương án giải quyết nào khác chưa?
+    validations:
+      required: false

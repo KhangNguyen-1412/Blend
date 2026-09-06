@@ -1,0 +1,40 @@
+# ==============================================================================
+# Enterprise SAST: GitHub Advanced Security CodeQL Analysis
+# Scans JavaScript/TypeScript codebase for OWASP Top 10 vulnerabilities & CWEs
+# ==============================================================================
+name: CodeQL Security Analysis
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  schedule:
+    # Run every Sunday at 02:00 UTC (09:00 AM VN time)
+    - cron: '0 2 * * 0'
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+  security-events: write
+
+jobs:
+  analyze:
+    name: 🛡️ CodeQL Static Analysis (JS/TS)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL Engine
+        uses: github/codeql-action/init@v3
+        with:
+          languages: 'javascript-typescript'
+          queries: +security-and-quality
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:javascript-typescript"

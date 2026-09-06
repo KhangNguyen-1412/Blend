@@ -1,0 +1,41 @@
+# ==============================================================================
+# Enterprise Release Management: Automated Semantic Release & Changelog
+# ==============================================================================
+name: Enterprise Release Management
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  create-release:
+    name: 📦 Publish GitHub Release & Changelog
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate Release Notes & Changelog
+        id: release_notes
+        run: |
+          TAG_NAME="${{ github.ref_name }}"
+          echo "tag=$TAG_NAME" >> $GITHUB_OUTPUT
+          echo "Preparing release notes for $TAG_NAME..."
+
+      - name: Create Official GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: "Release ${{ github.ref_name }}"
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

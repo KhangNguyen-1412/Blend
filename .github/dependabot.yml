@@ -1,0 +1,65 @@
+# ==============================================================================
+# Enterprise Dependabot Configuration for Blend Management System
+# Monitors npm packages across Root, Backend, Frontend, and GitHub Actions
+# ==============================================================================
+version: 2
+updates:
+  # 1. Root dependencies (Concurrently, Dev tools)
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "03:00"
+      timezone: "Asia/Ho_Chi_Minh"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "KhangNguyen-1412"
+    labels:
+      - "dependencies"
+      - "enterprise-security"
+
+  # 2. Backend API dependencies (Express, SQLite, Morgan, Cors)
+  - package-ecosystem: "npm"
+    directory: "/backend"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "03:15"
+      timezone: "Asia/Ho_Chi_Minh"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "KhangNguyen-1412"
+    labels:
+      - "backend"
+      - "dependencies"
+      - "enterprise-security"
+
+  # 3. Frontend React/Vite dependencies
+  - package-ecosystem: "npm"
+    directory: "/frontend"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "03:30"
+      timezone: "Asia/Ho_Chi_Minh"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "KhangNguyen-1412"
+    labels:
+      - "frontend"
+      - "dependencies"
+      - "enterprise-security"
+
+  # 4. GitHub Actions Workflows
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "04:00"
+      timezone: "Asia/Ho_Chi_Minh"
+    open-pull-requests-limit: 5
+    labels:
+      - "ci-cd"
+      - "devops"

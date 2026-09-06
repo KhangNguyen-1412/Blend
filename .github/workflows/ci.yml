@@ -1,0 +1,150 @@
+# ==============================================================================
+# Enterprise Continuous Integration (CI) Pipeline for Blend Management System
+# ==============================================================================
+name: Enterprise CI Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+
+jobs:
+  # ----------------------------------------------------------------------------
+  # Job 1: Dependency Vulnerability Audit
+  # ----------------------------------------------------------------------------
+  security-audit:
+    name: 🛡️ Security Vulnerability Audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+
+      - name: Audit Backend Dependencies
+        run: |
+          echo "Auditing backend dependencies..."
+          npm --prefix backend audit --audit-level=high || true
+
+      - name: Audit Frontend Dependencies
+        run: |
+          echo "Auditing frontend dependencies..."
+          npm --prefix frontend audit --audit-level=high || true
+
+  # ----------------------------------------------------------------------------
+  # Job 2: Backend Test Suite & Coverage (Matrix Node 22.x & 24.x)
+  # ----------------------------------------------------------------------------
+  backend-ci:
+    name: ☕ Backend API Tests (Node ${{ matrix.node-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [22.x, 24.x]
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: 'backend/package-lock.json'
+
+      - name: Install Backend Dependencies
+        run: npm --prefix backend ci --prefer-offline
+
+      - name: Execute Backend Tests & Coverage
+        run: npm --prefix backend run test:coverage
+
+      - name: Upload Backend Coverage Artifact
+        if: matrix.node-version == '22.x'
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-test-coverage
+          path: backend/coverage/
+          retention-days: 14
+
+  # ----------------------------------------------------------------------------
+  # Job 3: Frontend Test Suite & Coverage (Matrix Node 22.x & 24.x)
+  # ----------------------------------------------------------------------------
+  frontend-ci:
+    name: ⚛️ Frontend React Tests (Node ${{ matrix.node-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [22.x, 24.x]
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: 'frontend/package-lock.json'
+
+      - name: Install Frontend Dependencies
+        run: npm --prefix frontend ci --prefer-offline
+
+      - name: Execute Frontend Tests & Coverage
+        run: npm --prefix frontend run test:coverage
+
+      - name: Upload Frontend Coverage Artifact
+        if: matrix.node-version == '22.x'
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-test-coverage
+          path: frontend/coverage/
+          retention-days: 14
+
+  # ----------------------------------------------------------------------------
+  # Job 4: Production Build Verification & Asset Quality Gate
+  # ----------------------------------------------------------------------------
+  build-verification:
+    name: 🏗️ Production Bundle Build & Verification
+    runs-on: ubuntu-latest
+    needs: [backend-ci, frontend-ci]
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          cache: 'npm'
+          cache-dependency-path: 'frontend/package-lock.json'
+
+      - name: Install Dependencies & Build Frontend Bundle
+        run: |
+          npm --prefix frontend ci --prefer-offline
+          npm --prefix frontend run build
+
+      - name: Verify Bundle Integrity
+        run: |
+          test -f frontend/dist/index.html || { echo "index.html missing in dist!"; exit 1; }
+          echo "Production build verified successfully!"
+          ls -la frontend/dist/
+
+      - name: Upload Production Distribution Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: blend-production-bundle
+          path: frontend/dist/
+          retention-days: 7

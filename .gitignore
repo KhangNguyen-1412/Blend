@@ -1,1 +1,12 @@
 node_modules
+dist
+coverage
+*.log
+npm-debug.log*
+.env
+.env.local
+.DS_Store
+Thumbs.db
+backend/data/*.db-shm
+backend/data/*.db-wal
+backend/data/*.db-journal

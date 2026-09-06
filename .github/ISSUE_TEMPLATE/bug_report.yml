@@ -1,0 +1,58 @@
+name: "🐛 Báo Cáo Lỗi (Bug Report)"
+description: "Khai báo sự cố kỹ thuật hoặc lỗi vận hành trong hệ thống Blend Management"
+title: "[BUG]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Cảm ơn bạn đã báo cáo sự cố! Vui lòng cung cấp chi tiết theo mẫu chuẩn doanh nghiệp dưới đây để đội ngũ kỹ sư xử lý nhanh chóng.
+  - type: dropdown
+    id: module
+    attributes:
+      label: Phân hệ xảy ra sự cố
+      options:
+        - "Backend API / Database (SQLite)"
+        - "Frontend UI / React View"
+        - "Đơn hàng & POS (Orders)"
+        - "Kho nguyên liệu (Inventory)"
+        - "Xác thực & Phân quyền (Auth / Staff)"
+        - "CI/CD Workflows / Deployment"
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Mô tả lỗi
+      placeholder: Mô tả rõ ràng và súc tích về sự cố đã gặp phải...
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Các bước tái hiện lỗi (Steps to Reproduce)
+      placeholder: |
+        1. Truy cập vào '...'
+        2. Nhấp vào nút '....'
+        3. Điền thông tin '....'
+        4. Quan sát thấy lỗi hiển thị...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Hành vi kỳ vọng (Expected Behavior)
+      placeholder: Hành vi hoặc kết quả đúng theo đặc tả nghiệp vụ...
+    validations:
+      required: true
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Mức độ nghiêm trọng (Severity Level)
+      options:
+        - "P1 - Blocker (Hệ thống ngừng hoạt động, tắc nghẽn thanh toán/đơn hàng)"
+        - "P2 - Critical (Tính năng cốt lõi bị gián đoạn, không có phương án thay thế)"
+        - "P3 - Major (Tính năng bị lỗi nhưng có phương án thay thế tạm thời)"
+        - "P4 - Minor (Lỗi giao diện, sai chính tả, cảnh báo không ảnh hưởng dữ liệu)"
+    validations:
+      required: true

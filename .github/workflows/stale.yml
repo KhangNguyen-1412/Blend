@@ -1,0 +1,38 @@
+# ==============================================================================
+# Enterprise Lifecycle: Automated Stale Issue & PR Triage
+# Automatically marks and closes inactive issues and pull requests
+# ==============================================================================
+name: Stale Issue & PR Triage
+
+on:
+  schedule:
+    # Run daily at 01:00 UTC (08:00 AM VN time)
+    - cron: '0 1 * * *'
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  stale:
+    name: 🧹 Sweep Inactive Issues & PRs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mark Stale Issues & PRs
+        uses: actions/stale@v9
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          days-before-stale: 60
+          days-before-close: 7
+          stale-issue-label: 'stale'
+          stale-pr-label: 'stale'
+          stale-issue-message: |
+            Xin chào! Issue này đã không có hoạt động mới trong 60 ngày qua và được gắn nhãn `stale`. 
+            Nếu sự cố hoặc đề xuất này vẫn còn hiệu lực, vui lòng để lại bình luận để giữ issue mở. 
+            Nếu không có phản hồi, issue sẽ tự động đóng sau 7 ngày. Xin cảm ơn!
+          stale-pr-message: |
+            Xin chào tác giả! Pull Request này đã không có hoạt động mới trong 60 ngày qua và được gắn nhãn `stale`. 
+            Vui lòng rebase và kiểm tra lại trạng thái. Nếu không có phản hồi, PR sẽ tự động đóng sau 7 ngày.
+          exempt-issue-labels: 'pinned,security,epic,never-stale'
+          exempt-pr-labels: 'pinned,security,never-stale'

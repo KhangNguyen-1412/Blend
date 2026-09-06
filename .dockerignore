@@ -1,0 +1,14 @@
+node_modules
+npm-debug.log
+.git
+.gitignore
+.env
+.env.local
+*.md
+docs/
+coverage/
+.system_generated/
+backend/data/*.db-journal
+backend/data/*.db-wal
+backend/data/*.db-shm
+test/

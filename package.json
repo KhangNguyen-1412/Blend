@@ -12,7 +12,12 @@
     "install:all": "npm install && npm run install:backend && npm run install:frontend",
     "build:frontend": "npm --prefix frontend run build",
     "build": "npm --prefix frontend install && npm --prefix frontend run build",
-    "start": "node backend/src/server.js"
+    "start": "node backend/src/server.js",
+    "test": "npm run test:backend && npm run test:frontend",
+    "test:backend": "npm --prefix backend run test:run",
+    "test:frontend": "npm --prefix frontend run test:run",
+    "test:coverage": "npm --prefix backend run test:coverage && npm --prefix frontend run test:coverage",
+    "audit": "npm audit --audit-level=high"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"

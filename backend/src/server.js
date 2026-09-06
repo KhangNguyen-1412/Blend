@@ -65,8 +65,10 @@ app.use((err, req, res, next) => {
   res.status(500).json({ success: false, message: 'Internal Server Error', error: err.message });
 });
 
-app.listen(PORT, () => {
-  console.log(`☕ Blend Backend Server is running at http://localhost:${PORT}`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`☕ Blend Backend Server is running at http://localhost:${PORT}`);
+  });
+}
 
 module.exports = app;
